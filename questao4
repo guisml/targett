@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main() {
+    // Declaração dos faturamentos
+    float faturamentoSP = 67836.43;
+    float faturamentoRJ = 36678.66;
+    float faturamentoMG = 29229.88;
+    float faturamentoES = 27165.48;
+    float faturamentoOutros = 19849.53;
+
+    // Calculando o faturamento total
+    float faturamentoTotal = faturamentoSP + faturamentoRJ + faturamentoMG + faturamentoES + faturamentoOutros;
+
+    // Calculando e exibindo o percentual de cada estado
+    printf("Percentual de representacao de cada estado:\n");
+    printf("SP: %.2f%%\n", (faturamentoSP / faturamentoTotal) * 100);
+    printf("RJ: %.2f%%\n", (faturamentoRJ / faturamentoTotal) * 100);
+    printf("MG: %.2f%%\n", (faturamentoMG / faturamentoTotal) * 100);
+    printf("ES: %.2f%%\n", (faturamentoES / faturamentoTotal) * 100);
+    printf("Outros: %.2f%%\n", (faturamentoOutros / faturamentoTotal) * 100);
+
+    return 0;
+}
