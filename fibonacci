@@ -9,7 +9,7 @@ int pertence_fibonacci(int num) {
         b = fib;
     }
 
-    return (fib == num || num == 0);  // Verifica se o número informado pertence à sequência
+    return (fib == num || num == 0);  
 }
 
 int main() {
