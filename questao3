@@ -1,0 +1,47 @@
+import org.json.JSONArray;
+import org.json.JSONObject;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+public class FaturamentoDistribuidora {
+
+    public static void main(String[] args) {
+        try {
+            // Lendo o arquivo JSON
+            String jsonContent = new String(Files.readAllBytes(Paths.get("faturamento.json")));
+            JSONArray faturamentoArray = new JSONArray(jsonContent);
+
+            // Armazenando faturamentos válidos (diferentes de zero)
+            List<Double> faturamentos = new ArrayList<>();
+            for (int i = 0; i < faturamentoArray.length(); i++) {
+                JSONObject dia = faturamentoArray.getJSONObject(i);
+                double valorFaturamento = dia.getDouble("faturamento");
+                if (valorFaturamento > 0) {
+                    faturamentos.add(valorFaturamento);
+                }
+            }
+
+            // Calculando menor e maior valor de faturamento
+            double menorFaturamento = faturamentos.stream().min(Double::compare).orElse(0.0);
+            double maiorFaturamento = faturamentos.stream().max(Double::compare).orElse(0.0);
+
+            // Calculando a média mensal
+            double somaFaturamento = faturamentos.stream().mapToDouble(Double::doubleValue).sum();
+            double mediaMensal = somaFaturamento / faturamentos.size();
+
+            // Contando dias com faturamento acima da média
+            long diasAcimaMedia = faturamentos.stream().filter(f -> f > mediaMensal).count();
+
+            // Exibindo os resultados
+            System.out.printf("Menor faturamento do mês: R$%.2f%n", menorFaturamento);
+            System.out.printf("Maior faturamento do mês: R$%.2f%n", maiorFaturamento);
+            System.out.printf("Número de dias com faturamento acima da média mensal: %d%n", diasAcimaMedia);
+
+        } catch (IOException e) {
+            System.err.println("Erro ao ler o arquivo JSON: " + e.getMessage());
+        }
+    }
+}
